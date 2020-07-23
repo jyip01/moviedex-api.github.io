@@ -21,7 +21,7 @@ app.use(function validateBearerToken(req, res, next) {
 })
 
 app.get('/movie', function handleGetMovie(req, res) {
-  let response = MOVIES;
+  let response = movies-data-small.MOVIES;
 
   if (req.query.genre) {
     response = response.filter(movie =>
@@ -37,14 +37,14 @@ app.get('/movie', function handleGetMovie(req, res) {
 
   if (req.query.avg_vote) {
     response = response.filter(movie =>
-      Number(movie.avg_vote) >= Number(req.query.avg_vote)
+      Number(movie.avg_vote).includes(Number(req.query.avg_vote))
     )
   }
 
   res.json(response)
 })
 
-const PORT = 9000
+const PORT = 8000
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`)
