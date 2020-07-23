@@ -11,17 +11,17 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use(helmet())
 
-app.use(function validateBearerToken(req, res, next) {
+/*app.use(function validateBearerToken(req, res, next) {
   const apiToken = process.env.API_TOKEN
   const authToken = req.get('Authorization')
   if (!authToken || authToken.split(' ')[1] !== apiToken) {
     return res.status(401).json({ error: 'Unauthorized request' })
   }
   next()
-})
+})*/
 
 app.get('/movie', function handleGetMovie(req, res) {
-  let response = movies-data-small.MOVIES;
+  let response = MOVIES;
 
   if (req.query.genre) {
     response = response.filter(movie =>
@@ -37,7 +37,7 @@ app.get('/movie', function handleGetMovie(req, res) {
 
   if (req.query.avg_vote) {
     response = response.filter(movie =>
-      Number(movie.avg_vote).includes(Number(req.query.avg_vote))
+      Number(movie.avg_vote) >= Number(req.query.avg_vote)
     )
   }
 
